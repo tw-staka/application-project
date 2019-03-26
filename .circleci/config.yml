@@ -1,0 +1,18 @@
+version: 2.1
+executors:
+  terraform: # declares a reusable executor
+    docker:
+      - image: hashicorp/terraform:0.11.13
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: application_default_credentials.json
+
+jobs:
+  build:
+    executor: terraform
+    steps:
+      - checkout
+      - run: ls
+      - run: echo $DEFAULT_APPLICATION_CREDENTIALS_FILE | base64 -d > application_default_credentials.json
+      - run: terraform init -backend-config=application-stg-44fe6b -backend-config=prefix=staging
+      - run: terraform plan -var-file staging.tfvars -out=terraform.stg.plan
+      - run: terraform apply "terraform.stg.plan"
