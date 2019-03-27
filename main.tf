@@ -33,7 +33,7 @@ resource "google_container_cluster" "gke_cluster" {
 resource "google_cloudbuild_trigger" "tw-in-a-box-trigger" {
   trigger_template {
     branch_name = "master"
-    repo_name = "tw-in-a-box-application-project"
+    repo_name = "${var.application_repo_name}"
   }
 
   filename = "cloudbuild.yaml"
