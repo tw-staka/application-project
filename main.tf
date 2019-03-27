@@ -1,5 +1,5 @@
 resource "google_container_cluster" "gke_cluster" {
-  name = "team-cluster-${var.env}"
+  name = "team-cluster-${var.environment_short}"
   project = "${var.project_id}"
   region = "${var.region}"
 
