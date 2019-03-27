@@ -31,9 +31,16 @@ resource "google_container_cluster" "gke_cluster" {
 }
 
 resource "google_cloudbuild_trigger" "tw-in-a-box-trigger" {
+  project = "${var.project_id}"
+  provider = "google-beta"
+
   trigger_template {
     branch_name = "master"
     repo_name = "${var.application_repo_name}"
+  }
+
+  substitutions {
+    ENVIRONMENT = "${var.environment}"
   }
 
   filename = "cloudbuild.yaml"
