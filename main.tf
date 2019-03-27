@@ -40,7 +40,7 @@ resource "google_cloudbuild_trigger" "tw-in-a-box-trigger" {
   }
 
   substitutions {
-    ENVIRONMENT = "${var.environment}"
+    _ENVIRONMENT = "${var.environment}"
   }
 
   filename = "cloudbuild.yaml"
