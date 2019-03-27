@@ -16,6 +16,6 @@ jobs:
       - checkout
       - run: ls
       - run: echo $DEFAULT_APPLICATION_CREDENTIALS_FILE | base64 -d > application_default_credentials.json
-      - run: terraform init -backend-config=bucket=$PROJECT_ID -backend-config=prefix=$ENV
+      - run: terraform init -backend-config=bucket=$PROJECT_ID
       - run: terraform plan -var-file $ENV.tfvars -out=terraform.$ENV.plan
       - run: terraform apply terraform.$ENV.plan
