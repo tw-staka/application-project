@@ -9,10 +9,13 @@ executors:
 jobs:
   build:
     executor: terraform
+    environment:
+      PROJECT_ID: application-stg-44fe6b
+      ENV: staging
     steps:
       - checkout
       - run: ls
       - run: echo $DEFAULT_APPLICATION_CREDENTIALS_FILE | base64 -d > application_default_credentials.json
-      - run: terraform init -backend-config=application-stg-44fe6b -backend-config=prefix=staging
-      - run: terraform plan -var-file staging.tfvars -out=terraform.stg.plan
-      - run: terraform apply "terraform.stg.plan"
+      - run: terraform init -backend-config=bucket=$PROJECT_ID -backend-config=prefix=$ENV
+      - run: terraform plan -var-file $ENV.tfvars -out=terraform.$ENV.plan
+      - run: terraform apply terraform.$ENV.plan
