@@ -37,6 +37,11 @@ resource "google_cloudbuild_trigger" "build_application" {
     branch_name = "master"
     repo_name = "${var.application_repo_name}"
   }
+
+  substitutions {
+    _APPLICATION_ENV_REPO_NAME = "${var.application_env_repo_name}"
+  }
+
   filename = "cloudbuild.yaml"
 }
 
