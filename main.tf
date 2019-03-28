@@ -47,5 +47,11 @@ resource "google_cloudbuild_trigger" "deploy_application" {
     branch_name = "master"
     repo_name = "github_paulvalla_tw-in-a-box-gke-application-env"
   }
+
+  substitutions {
+    _CLOUDSDK_COMPUTE_REGION = "${var.region}"
+    _CLUSTER_NAME = "${google_container_cluster.gke_cluster.name}"
+  }
+
   filename = "cloudbuild.yaml"
 }
