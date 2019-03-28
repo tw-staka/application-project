@@ -30,18 +30,22 @@ resource "google_container_cluster" "gke_cluster" {
   }
 }
 
-resource "google_cloudbuild_trigger" "tw-in-a-box-trigger" {
+resource "google_cloudbuild_trigger" "build_application" {
   project = "${var.project_id}"
   provider = "google-beta"
-
   trigger_template {
     branch_name = "master"
     repo_name = "${var.application_repo_name}"
   }
+  filename = "cloudbuild.yaml"
+}
 
-  substitutions {
-    _ENVIRONMENT = "${var.environment}"
+resource "google_cloudbuild_trigger" "deploy_application" {
+  project = "${var.project_id}"
+  provider = "google-beta"
+  trigger_template {
+    branch_name = "master"
+    repo_name = "github_paulvalla_tw-in-a-box-gke-application-env"
   }
-
   filename = "cloudbuild.yaml"
 }
