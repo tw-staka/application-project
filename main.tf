@@ -39,7 +39,7 @@ resource "google_cloudbuild_trigger" "build_application" {
   }
 
   substitutions {
-    _APPLICATION_ENV_REPO_NAME = "${var.application_env_repo_name}"
+    _APPLICATION_ENV_REPO_NAME = "${var.application_env_git_repo_name}"
   }
 
   filename = "cloudbuild.yaml"
