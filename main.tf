@@ -50,7 +50,7 @@ resource "google_cloudbuild_trigger" "deploy_application" {
   provider = "google-beta"
   trigger_template {
     branch_name = "master"
-    repo_name = "github_paulvalla_tw-in-a-box-gke-application-env"
+    repo_name = "${var.application_env_git_repo_name}"
   }
 
   substitutions {
